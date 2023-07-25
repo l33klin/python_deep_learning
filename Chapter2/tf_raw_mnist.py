@@ -1,7 +1,7 @@
 import numpy
 import tensorflow as tf
 
-learning_rate = 1e-3
+learning_rate = 2e-3
 
 
 def update_weights(gradients, weights):
@@ -113,7 +113,7 @@ train_images = train_images.astype("float32") / 255
 test_images = test_images.reshape((10000, 28 * 28))
 test_images = test_images.astype("float32") / 255
 
-fit(model, train_images, train_labels, epochs=20, batch_size=128)
+fit(model, train_images, train_labels, epochs=10, batch_size=128)
 
 predictions = model(test_images)
 predictions = predictions.numpy()  # ←----对TensorFlow张量调用.numpy()，可将其转换为NumPy张量
