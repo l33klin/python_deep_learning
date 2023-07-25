@@ -8,6 +8,7 @@ def update_weights(gradients, weights):
   for g, w in zip(gradients, weights):
     w.assign_sub(g * learning_rate)  # ←---- assign_sub相当于TensorFlow变量的-=
 
+
 # from tensorflow.keras import optimizers
 #
 # optimizer = optimizers.SGD(learning_rate=1e-3)
@@ -91,6 +92,7 @@ def one_training_step(model, images_batch, labels_batch):
     update_weights(gradients, model.weights)  # ←----利用梯度来更新权重（稍后给出这个函数的定义）
     return average_loss
 
+
 def fit(model, images, labels, epochs, batch_size=128):
   for epoch_counter in range(epochs):
     print(f"Epoch {epoch_counter}")
@@ -103,6 +105,7 @@ def fit(model, images, labels, epochs, batch_size=128):
 
 
 from tensorflow import keras
+
 (train_images, train_labels), (test_images, test_labels) = keras.datasets.mnist.load_data()
 
 train_images = train_images.reshape((60000, 28 * 28))
@@ -113,7 +116,7 @@ test_images = test_images.astype("float32") / 255
 fit(model, train_images, train_labels, epochs=20, batch_size=128)
 
 predictions = model(test_images)
-predictions = predictions.numpy()  #←----对TensorFlow张量调用.numpy()，可将其转换为NumPy张量
+predictions = predictions.numpy()  # ←----对TensorFlow张量调用.numpy()，可将其转换为NumPy张量
 predicted_labels = numpy.argmax(predictions, axis=1)
 matches = predicted_labels == test_labels
 print(f"accuracy: {matches.mean():.2f}")
